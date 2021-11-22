@@ -1,0 +1,68 @@
+---
+clients_emails_and_hosts:
+  type: object
+  description: 'The dictionary of clients and collections with hosts that are accosiated
+      with each client in the next format: {"client1":{"emails":["client1-1@example.com","cleint1-2@example.com"],"cols_and_hosts":{"web_anomaly":["dataform"],"network_anomaly":["cumulus"]}},"\u0441lient2":{"emails":["client2-1@example2.com","cleint2-2@example2.com"],"cols_and_hosts":{"utm_anomaly":["172.17.18.56"],"network_anomaly":["cumulus"]}}}'
+  required: true
+  position: 1
+mongouri:
+  type: string
+  description: MongoDB URI in "mongodb://username:password@X.X.X.X:yyyy" format
+  required: true
+  position: 2
+sourcedb:
+  type: string
+  description: Name of the database, where anomaly logs are stored
+  required: true
+  position: 3
+event_handler_period:
+  type: integer
+  description: Event collection period in days
+  default: 7
+  required: true
+  position: 4
+report_store_dir:
+  type: string
+  description: Base directory, where reports will be stored
+  default: "/opt/reports/"
+  required: true
+  position: 5
+smtp_servername:
+  type: string
+  description: "The mail server FQDN"
+  required: true
+  position: 6
+smtp_server_port:
+  type: integer
+  description: "The mail server smtp_server_port"
+  required: true
+  position: 7
+use_ssl:
+  type: boolean
+  description: "True if SSL/TLS (now STARTTLS) encryption should be used"
+  default: false
+  required: false
+  position: 8
+use_starttls:
+  type: boolean
+  description: "True if STARTTLS should be used"
+  default: false
+  required: false
+  position: 9
+sender:
+  type: string
+  description: "The email address of the server"
+  required: true
+  position: 10
+sender_username:
+  type: string
+  description: "The sender username for SMTP authentication"
+  default: ""
+  required: false
+  position: 11
+sender_password:
+  type: string
+  description: "The sender password for SMTP authentication"
+  default: ""
+  required: false
+  position: 12

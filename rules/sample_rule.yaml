@@ -1,0 +1,17 @@
+---
+name: anomaly_reporter_rule
+description: "The rule which generates and send reports every day"
+pack: anomaly_reporter
+enabled: true
+
+trigger:
+  type: "core.st2.CronTimer"
+  parameters:
+    timezone: "Europe/Minsk"
+    day_of_week: '*'
+    hour: 16
+    minute: 0
+    second: 0
+
+action:
+  ref: anomaly_reporter.reporter_masterOA

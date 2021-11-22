@@ -26,7 +26,10 @@ class PDFReport(FPDF, HTMLMixin):
         # and margins accordingly
 
         # Create title
-        header = f'Abnormal activity report for the last {daysnum} days'
+        if daysnum == 1:
+            header = f'Abnormal activity report for the last day'
+        else:
+            header = f'Abnormal activity report for the last {daysnum} days'
         self.set_font('Arial', 'B', 20)
         w = self.get_string_width(header)
         self.set_x((self.WIDTH - w)/2)
@@ -38,6 +41,10 @@ class PDFReport(FPDF, HTMLMixin):
             self.ln()
             self.set_font('Arial', 'B', 14)
             self.cell(0, 10, f'Logs from {host}:')
+            if not logs:  # if it's empty
+                self.ln()
+                self.set_font('Arial', '', 12)
+                self.multi_cell(0, 5, "No anomalies where detected")
             for log in logs:
                 self.ln()
                 self.set_font('Courier', '', 12)

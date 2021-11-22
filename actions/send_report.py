@@ -22,7 +22,10 @@ class SendReport(Action):
         msg["From"] = sender
         msg["To"] = COMMASPACE.join(client_emails)
         msg["Date"] = formatdate(localtime=True)
-        msg['Subject'] = f"Log report for last {event_handler_period} days"
+        if event_handler_period == 1:
+            msg['Subject'] = f"Log report for the last day"
+        else:
+            msg['Subject'] = f"Log report for last {event_handler_period} days"
 
         msg.attach(MIMEText("See the report in the attachment."))
 
