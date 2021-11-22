@@ -5,11 +5,15 @@ It's a StackStorm pack to orchestrate log anomaly reporting.
 # Installation and Usage
 
 **Step 1:** Clone this repo to the local filesystem
+
 **Step 2:** Install the pack
+
 ```bash
 $ st2 pack install file:///home/user/anomaly_reporter
 ```
+
 **Step 3:** Create the configuration file `anomaly_reporter.yaml` in the `/opt/stackstorm/configs/` directory:
+
 ```yaml
 $ cat /opt/stackstorm/configs/anomaly_reporter.yaml
 ---
