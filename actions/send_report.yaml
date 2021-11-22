@@ -12,12 +12,12 @@ parameters:
     position: 1
   smtp_server_port:
     type: integer
-    description: "The mail server smtp_server_port"
+    description: "The mail server port"
     required: true
     position: 2
   use_ssl:
     type: boolean
-    description: "True if SSL/TLS (now STARTTLS) encryption should be used"
+    description: "True if SSL/TLS (not STARTTLS) encryption should be used"
     default: false
     required: false
     position: 3

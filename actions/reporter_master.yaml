@@ -9,7 +9,7 @@ parameters:
   clients_emails_and_hosts:
     type: object
     description: 'The dictionary of clients and collections with hosts that are accosiated
-        with each client in the next format: {"client1":{"emails":["client1-1@example.com","cleint1-2@example.com"],"cols_and_hosts":{"web_anomaly":["dataform"],"network_anomaly":["cumulus"]}},"\u0441lient2":{"emails":["client2-1@example2.com","cleint2-2@example2.com"],"cols_and_hosts":{"utm_anomaly":["172.17.18.56"],"network_anomaly":["cumulus"]}}}'
+    with each client in the next format: {"client1":{"emails":["client1-1@example.com","cleint1-2@example.com"],"cols_and_hosts":{"web_anomaly":["dataform"],"network_anomaly":["cumulus"]}},"client2":{"emails":["client2-1@example2.com","cleint2-2@example2.com"],"cols_and_hosts":{"utm_anomaly":["172.17.18.56"],"network_anomaly":["cumulus"]}}}'
     required: true
     default: "{{ config_context.clients_emails_and_hosts }}"
     position: 1
@@ -45,13 +45,13 @@ parameters:
     position: 6
   smtp_server_port:
     type: integer
-    description: "The mail server smtp_server_port"
+    description: "The mail server port"
     required: true
     default: "{{ config_context.smtp_server_port }}"
     position: 7
   use_ssl:
     type: boolean
-    description: "True if SSL/TLS (now STARTTLS) encryption should be used"
+    description: "True if SSL/TLS (not STARTTLS) encryption should be used"
     required: true
     default: "{{ config_context.use_ssl }}"
     position: 8
