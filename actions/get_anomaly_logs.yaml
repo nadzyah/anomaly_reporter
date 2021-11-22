@@ -1,0 +1,25 @@
+---
+name: get_anomaly_logs
+runner_type: python-script
+description: Retrieve anomaly logs for specific hostname
+enabled: true
+entry_point: get_anomaly_logs.py
+parameters:
+  mongouri:
+    type: string
+    description: MongoDB URI in "mongodb://username:password@X.X.X.X:yyyy" format
+    required: true
+  sourcedb:
+    type: string
+    description: Name of the database, where anomaly logs are stored
+    required: true
+  cols_and_hosts:
+    type: object
+    description: "The collections where the logs for specific hostnames are stored.
+        The format is {collection1: [list of hostnames], collection2: [list of hostnames]}"
+    required: true
+  event_handler_period:
+    type: integer
+    description: Event collection period in days
+    default: 7
+    required: true

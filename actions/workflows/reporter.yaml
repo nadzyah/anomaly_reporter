@@ -1,0 +1,90 @@
+version: 1.0
+
+description: Reporter workflow
+
+input:
+  - clientname
+  - client_emails
+  - mongouri
+  - sourcedb
+  - cols_and_hosts
+  - event_handler_period
+  - report_store_dir
+  - smtp_servername
+  - smtp_server_port
+  - use_ssl
+  - use_starttls
+  - sender
+  - sender_username
+  - sender_password
+
+vars:
+  - exit_code: 0
+
+
+tasks:
+
+  step1_get_anomaly_logs:
+    action: anomaly_reporter.get_anomaly_logs \
+        mongouri='<% ctx().mongouri %>' \
+        sourcedb='<% ctx().sourcedb %>' \
+        cols_and_hosts='<% ctx().cols_and_hosts %>' \
+        event_handler_period='<% ctx().event_handler_period %>'
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - logdata: <% result().result %>
+        do: step2_generate_report
+      - when: <% failed() %>
+        publish:
+          - msg: "Cannot get logs from the database. Check the connection settings"
+          - exit_code: "ERROR_CANNOT_GET_ANOMALY_LOGS"
+        do: notification
+
+  step2_generate_report:
+    action: anomaly_reporter.generate_report \
+        logdata='<% ctx().logdata %>' \
+        clientname='<% ctx().clientname %>' \
+        report_store_dir='<% ctx().report_store_dir %>' \
+        event_handler_period='<% ctx().event_handler_period %>'
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - report_path: <% result().result %>
+        do: step3_send_report
+      - when: <% failed() %>
+        publish:
+          - msg: "Cannot generate report. Check if there're any anomaly logs"
+          - exit_code: "ERROR_CANNOT_GENERATE_REPORT"
+        do: notification
+
+  step3_send_report:
+    action: anomaly_reporter.send_report  \
+        smtp_servername='<% ctx().smtp_servername %>' \
+        smtp_server_port='<% ctx().smtp_server_port %>' \
+        use_ssl='<% ctx().use_ssl %>' \
+        use_starttls='<% ctx().use_starttls %>' \
+        sender='<% ctx().sender %>' \
+        client_emails='<% ctx().client_emails %>' \
+        report_path='<% ctx().report_path %>' \
+        event_handler_period='<% ctx().event_handler_period %>' \
+        sender_username='<% ctx().sender_username %>' \
+        sender_password='<% ctx().sender_password %>'
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - msg: "<% result().result %>"
+        do:
+          - notification
+      - when: <% failed() %>
+        publish:
+          - msg: "Error, the report was not send to <% ctx().client_emails %>"
+          - exit_code: "ERROR_CANNOT_SEND_REPORT"
+        do: notification
+
+  notification:
+    action: core.echo message="<% ctx().msg %>"
+
+output:
+  - result: <% ctx().exit_code %>
+

@@ -1,0 +1,85 @@
+---
+name: reporter
+pack: anomaly_reporter
+description: A basic anomaly reporter workflow
+runner_type: orquesta
+entry_point: workflows/reporter.yaml
+enabled: true
+parameters:
+  clientname:
+    type: "string"
+    description: "Client Name"
+    required: true
+    position: 1
+  client_emails:
+    type: array
+    description: Client Emails in "client1@mail.ex,client2@mail.ex" format
+    required: true
+    position: 2
+  mongouri:
+    type: string
+    description: MongoDB URI in "mongodb://username:password@X.X.X.X:yyyy" format
+    required: true
+    position: 3
+  sourcedb:
+    type: string
+    description: Name of the database, where anomaly logs are stored
+    required: true
+    position: 4
+  cols_and_hosts:
+    type: object
+    description: "The collections where the logs for specific hostnames are stored.
+        The format is {collection1: [list of hostnames], collection2: [list of hostnames]}"
+    required: true
+    position: 5
+  event_handler_period:
+    type: integer
+    description: Event collection period in days
+    default: 7
+    required: true
+    position: 6
+  report_store_dir:
+    type: string
+    description: Base directory, where reports will be stored
+    default: "/opt/reports/"
+    required: true
+    position: 7
+  smtp_servername:
+    type: string
+    description: "The mail server FQDN"
+    required: true
+    position: 8
+  smtp_server_port:
+    type: integer
+    description: "The mail server smtp_server_port"
+    required: true
+    position: 9
+  use_ssl:
+    type: boolean
+    description: "True if SSL/TLS (now STARTTLS) encryption should be used"
+    default: false
+    required: false
+    position: 10
+  use_starttls:
+    type: boolean
+    description: "True if STARTTLS should be used"
+    default: false
+    required: false
+    position: 11
+  sender:
+    type: string
+    description: "The email address of the server"
+    required: true
+    position: 12
+  sender_username:
+    type: string
+    description: "The sender username for SMTP authentication"
+    default: ""
+    required: false
+    position: 13
+  sender_password:
+    type: string
+    description: "The sender password for SMTP authentication"
+    default: ""
+    required: false
+    position: 14

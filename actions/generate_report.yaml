@@ -1,0 +1,31 @@
+---
+name: generate_report
+runner_type: python-script
+description: Generate reports from logs for specific hostname
+enabled: true
+entry_point: generate_report.py
+parameters:
+  logdata:
+    type: object
+    description: "The dict of hostnames and associated with them logs
+        The format is {hostname1: [list of logs], hostname2: [list of logs]}"
+    required: true
+    position: 1
+  clientname:
+    type: string
+    description: "The name of the client.
+        Is used to push all the reports in an individual folder"
+    required: true
+    position: 2
+  report_store_dir:
+    type: string
+    description: Base directory, where reports will be stored
+    default: "/opt/reports/"
+    required: true
+    position: 3
+  event_handler_period:
+    type: integer
+    description: The number of days for which the logs are retrieved
+    default: 7
+    required: true
+    position: 4

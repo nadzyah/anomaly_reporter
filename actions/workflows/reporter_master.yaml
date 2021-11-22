@@ -1,0 +1,63 @@
+version: 1.0
+
+description: Master worflow that starts Reporter in a loop
+
+input:
+  - clients_emails_and_hosts
+  - mongouri
+  - sourcedb
+  - event_handler_period
+  - report_store_dir
+  - smtp_servername
+  - smtp_server_port
+  - use_ssl
+  - use_starttls
+  - sender
+  - sender_username
+  - sender_password
+
+#vars:
+#  concurrency: 5
+
+tasks:
+  start:
+    action: core.echo message="Started..."
+    next:
+      - when: <% succeeded() %>
+        do: check_if_another_master_is_running
+
+  check_if_another_master_is_running:
+    action: st2.executions.list action="anomaly_reporter.reporter_master" status="running"
+    next:
+      - when: <% succeeded() and result().result.len() <= 1 %>
+        do: send_all_reports
+      - when: <% succeeded() and result().result.len() > 1 %>
+        do: already_running
+
+  send_all_reports:
+    with:
+      items: client, emails_and_hosts in <% ctx(clients_emails_and_hosts).items() %>
+    action: anomaly_reporter.reporter \
+        clientname='<% item(client) %>' \
+        client_emails='<% item(emails_and_hosts).get("emails") %>' \
+        mongouri='<% ctx().mongouri %>' \
+        sourcedb='<% ctx().sourcedb %>' \
+        cols_and_hosts='<% item(emails_and_hosts).get("cols_and_hosts") %>' \
+        event_handler_period='<% ctx().event_handler_period %>' \
+        report_store_dir='<% ctx().report_store_dir %>' \
+        sender='<% ctx().sender %>' \
+        smtp_servername='<% ctx().smtp_servername %>' \
+        smtp_server_port='<% ctx().smtp_server_port %>' \
+        use_ssl='<% ctx().use_ssl %>' \
+        use_starttls='<% ctx().use_starttls %>' \
+        sender_username='<% ctx().sender_username %>' \
+        sender_password='<% ctx().sender_password %>'
+    next:
+      - when: <% succeeded() %>
+        do: finish
+
+  finish:
+    action: "core.echo message='Completed!'"
+
+  already_running:
+    action: "core.echo message='Exit, another alerter_master is already running'"
