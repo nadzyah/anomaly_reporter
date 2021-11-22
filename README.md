@@ -68,7 +68,7 @@ Configuration parameters:
   <tr>  
   <tr>
     <td>mongouri</td>
-    <td>MongoDB server URI in "mongodb://username:password@X.X.X.X:yyyy" format </td>
+    <td>MongoDB server URI in "mongodb://username:password@IP.ADD.RE.SS:port" format </td>
   </tr>
   <tr>
      <td>sourcedb</td>
