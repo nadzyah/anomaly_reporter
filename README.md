@@ -101,7 +101,7 @@ Configuration parameters:
   </tbody>
 </table>
 
-**Step 4:** Register the pack and the config fle
+**Step 4:** Register the pack and the config file
 ```bash
 $ sudo st2ctl reload --register-all
 ```
