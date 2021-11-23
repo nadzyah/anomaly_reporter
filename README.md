@@ -21,7 +21,7 @@ mongouri: mongodb://172.17.18.83:27017
 sourcedb: anomalydb
 clients_emails_and_hosts:
   client1:
-    emails:  # Email addresses of the cleint1 admins
+    emails:  # Email addresses of the client1 admins
       - client1-1@example.com
       - cleint1-2@example.com
     cols_and_hosts:  # MongoDB collections and devices hostnames
