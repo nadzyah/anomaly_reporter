@@ -14,4 +14,4 @@ trigger:
     second: 0
 
 action:
-  ref: anomaly_reporter.reporter_masterOA
+  ref: anomaly_reporter.reporter_master
