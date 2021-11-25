@@ -40,6 +40,9 @@ clients_emails_and_hosts:
       network_anomaly:
         - cumulus
 event_handler_period: 1
+hostname_index: hostname
+datetime_index: timestamp
+message_index: message
 report_store_dir: "/opt/reports/"
 smtp_servername: mail.solidex.by
 smtp_server_port: 465
@@ -59,13 +62,13 @@ Configuration parameters:
       <th>Details</th>
     </tr>
   </thead>
-  <tbody> 
+  <tbody>
   <tr>
-    <td>mongouri</td>
+    <td>clients_emails_and_hosts</td>
     <td>The dictionary of clients and collections with hosts that are accosiated
         with each client. Use the specified in the example format</td>
   </tr>
-  <tr>  
+  <tr>
   <tr>
     <td>mongouri</td>
     <td>MongoDB server URI in "mongodb://username:password@IP.ADD.RE.SS:port" format </td>
@@ -73,6 +76,18 @@ Configuration parameters:
   <tr>
      <td>sourcedb</td>
      <td>Name of the database, where anomaly logs are stored</td>
+  </tr>
+  <tr>
+    <td>hostname_index</td>
+    <td>The name of the index where hostname is specified</td>
+  </tr>
+  <tr>
+    <td>datetime_index</td>
+    <td>The name of the index where event time is specified</td>
+  </tr>
+  <tr>
+    <td>message_index</td>
+    <td>The name of the index where event message (or raw event) is specified</td>
   </tr>
   <tr>
      <td>report_store_dir</td>

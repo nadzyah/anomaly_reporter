@@ -9,6 +9,9 @@ input:
   - sourcedb
   - cols_and_hosts
   - event_handler_period
+  - hostname_index
+  - datetime_index
+  - message_index
   - report_store_dir
   - smtp_servername
   - smtp_server_port
@@ -29,7 +32,10 @@ tasks:
         mongouri='<% ctx().mongouri %>' \
         sourcedb='<% ctx().sourcedb %>' \
         cols_and_hosts='<% ctx().cols_and_hosts %>' \
-        event_handler_period='<% ctx().event_handler_period %>'
+        event_handler_period='<% ctx().event_handler_period %>' \
+        hostname_index='<% ctx().hostname_index %>' \
+        datetime_index='<% ctx().datetime_index %>' \
+        message_index='<% ctx().message_index %>'
     next:
       - when: <% succeeded() %>
         publish:

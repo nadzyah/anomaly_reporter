@@ -38,48 +38,63 @@ parameters:
     default: 7
     required: true
     position: 6
+  hostname_index:
+    type: string
+    description: The name of the index where hostname is specified
+    required: true
+    position: 7
+  datetime_index:
+    type: string
+    description: The name of the index where event time is specified
+    required: true
+    position: 8
+  message_index:
+    type: string
+    description: The name of the index where the message (or raw event) is specified
+    required: true
+    position: 9
   report_store_dir:
     type: string
     description: Base directory, where reports will be stored
     default: "/opt/reports/"
     required: true
-    position: 7
+    position: 10
   smtp_servername:
     type: string
     description: "The mail server FQDN"
     required: true
-    position: 8
+    position: 11
   smtp_server_port:
     type: integer
     description: "The mail server port"
     required: true
-    position: 9
+    position: 12
   use_ssl:
     type: boolean
     description: "True if SSL/TLS (not STARTTLS) encryption should be used"
     default: false
     required: false
-    position: 10
+    position: 13
   use_starttls:
     type: boolean
     description: "True if STARTTLS should be used"
     default: false
     required: false
-    position: 11
+    position: 14
   sender:
     type: string
     description: "The email address of the server"
     required: true
-    position: 12
+    position: 15
   sender_username:
     type: string
     description: "The sender username for SMTP authentication"
     default: ""
     required: false
-    position: 13
+    position: 16
   sender_password:
     type: string
     description: "The sender password for SMTP authentication"
     default: ""
     required: false
-    position: 14
+    position: 17
