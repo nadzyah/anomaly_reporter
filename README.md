@@ -17,29 +17,30 @@ $ st2 pack install file:///home/user/anomaly_reporter
 ```yaml
 $ cat /opt/stackstorm/configs/anomaly_reporter.yaml
 ---
-mongouri: mongodb://172.17.18.83:27017
+mongouri: mongodb://dbadmin:password123@172.17.18.83:27017
 sourcedb: anomalydb
 clients_emails_and_hosts:
   client1:
-    emails:  # Email addresses of the client1 admins
+    emails:  # Email addresses of the cleint1 admins
+      #- nhryshalevich@solidex.by
       - client1-1@example.com
       - cleint1-2@example.com
     cols_and_hosts:  # MongoDB collections and devices hostnames
                      # that are interested for client1
-      web_anomaly:
-        - dataform
+      utm_anomaly:
+        - rh65.solidex.minsk.by
       network_anomaly:
-        - cumulus
+        - kvm1.lab.solidex.by
   client2:
     emails:
       - client2-1@example2.com
       - cleint2-2@example2.com
     cols_and_hosts:
       utm_anomaly:
-      - 172.17.18.56
+        - 172.17.31.10
       network_anomaly:
-        - cumulus
-event_handler_period: 1
+        - fortiauthenticator.solidex.minsk.by
+event_handler_period: 10
 hostname_index: hostname
 datetime_index: timestamp
 message_index: message
